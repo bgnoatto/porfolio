@@ -5,18 +5,20 @@ import { ArrowDown, Mail, FileDown } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { personal } from '@/lib/data'
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
-}
-
 export function Hero() {
   const reducedMotion = useReducedMotion()
+  const dur = reducedMotion ? 0 : 0.8
+  const stagger = reducedMotion ? 0 : 0.15
+
+  const containerVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: stagger } },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: dur, ease: 'easeOut' } },
+  }
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -28,40 +30,40 @@ export function Hero() {
       <div className="relative z-10 w-full max-w-3xl mx-auto px-6 py-24 flex flex-col items-center text-center">
         <motion.div
           className="glass-elevated p-10 md:p-16 w-full"
-          variants={reducedMotion ? undefined : containerVariants}
-          initial={reducedMotion ? false : 'hidden'}
+          variants={containerVariants}
+          initial="hidden"
           animate="visible"
         >
           <motion.p
-            variants={reducedMotion ? undefined : itemVariants}
+            variants={itemVariants}
             className="text-[--accent] font-mono text-sm mb-4 tracking-widest uppercase"
           >
             {personal.location}
           </motion.p>
 
           <motion.h1
-            variants={reducedMotion ? undefined : itemVariants}
+            variants={itemVariants}
             className="text-5xl md:text-7xl font-extrabold text-[--text-primary] tracking-tight mb-4"
           >
             {personal.name}
           </motion.h1>
 
           <motion.p
-            variants={reducedMotion ? undefined : itemVariants}
+            variants={itemVariants}
             className="text-xl md:text-2xl font-semibold text-[--accent] mb-6"
           >
             {personal.title}
           </motion.p>
 
           <motion.p
-            variants={reducedMotion ? undefined : itemVariants}
+            variants={itemVariants}
             className="text-[--text-secondary] text-base md:text-lg mb-10 max-w-xl mx-auto"
           >
             {personal.tagline}
           </motion.p>
 
           <motion.div
-            variants={reducedMotion ? undefined : itemVariants}
+            variants={itemVariants}
             className="flex flex-wrap gap-4 justify-center"
           >
             <Button variant="primary" as="a" href={`mailto:${personal.email}`}>
@@ -76,9 +78,9 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          initial={reducedMotion ? false : { opacity: 0 }}
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
+          transition={{ delay: reducedMotion ? 0 : 1.5, duration: dur }}
           className="mt-16 text-[--text-muted] animate-bounce"
         >
           <ArrowDown size={20} />

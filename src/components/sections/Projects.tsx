@@ -60,7 +60,7 @@ function FlagshipCard({ project }: { project: Project }) {
             <span className="text-xs font-mono text-[--accent] tracking-widest uppercase">{project.type}</span>
             <h3 className="text-2xl font-bold text-[--text-primary] mt-1">{project.title}</h3>
           </div>
-          <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-[--text-muted] glass-card border border-[--glass-border]">
+          <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs text-[--text-secondary] glass-card border border-[--glass-border]">
             <Lock size={12} /> Professional · Confidential
           </span>
         </div>
